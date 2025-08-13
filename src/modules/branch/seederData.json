@@ -1,23 +1,29 @@
 [
   {
-    "name": "شعبه دزفول",
-    "address": "دزفول فرهنگ شهر ",
+    "name": "دزفول",
+    "address": "خیابان هجرت نبش عدل ساختمان پالادیوم طبقه ۵",
     "phone": "06112345678",
     "mobile": "09920362084",
     "managerPhone": "09376903949",
-    "latitude": 32.3780257,
-    "longitude": 48.4032064,
+    "instagram": null,
+    "telegram": null,
+    "whatsapp": null,
+    "latitude": 32.3797228,
+    "longitude": 48.4057456,
     "openTime": "11:00:00",
     "closeTime": "21:00:00"
   },
   {
-    "name": "شعبه بندر امام",
-    "address": "بندر امام خیابان شهر ",
+    "name": "بندر امام",
+    "address": "بلوکیا خیابان فضل اله نوری ساختمان رولکس ۴",
     "phone": "06112345678",
     "mobile": "09130948659",
     "managerPhone": "09376903949",
-    "latitude": 30.5502699,
-    "longitude": 49.0565038,
+    "instagram": null,
+    "telegram": null,
+    "whatsapp": null,
+    "latitude": 32.3797228,
+    "longitude": 48.4057456,
     "openTime": "11:00:00",
     "closeTime": "21:00:00"
   }

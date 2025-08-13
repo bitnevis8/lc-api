@@ -38,6 +38,9 @@ class BranchController extends BaseController {
         longitude: Joi.number().allow(null),
         openTime: Joi.string().pattern(/^\d{2}:\d{2}(:\d{2})?$/).allow(null, ""),
         closeTime: Joi.string().pattern(/^\d{2}:\d{2}(:\d{2})?$/).allow(null, ""),
+        instagram: Joi.string().uri().allow(null, ""),
+        telegram: Joi.string().uri().allow(null, ""),
+        whatsapp: Joi.string().uri().allow(null, ""),
       });
       const { error, value } = schema.validate(req.body, { stripUnknown: true });
       if (error) return this.response(res, 400, false, error.details[0].message);
@@ -63,6 +66,9 @@ class BranchController extends BaseController {
         longitude: Joi.number().allow(null).optional(),
         openTime: Joi.string().pattern(/^\d{2}:\d{2}(:\d{2})?$/).allow(null, "").optional(),
         closeTime: Joi.string().pattern(/^\d{2}:\d{2}(:\d{2})?$/).allow(null, "").optional(),
+        instagram: Joi.string().uri().allow(null, "").optional(),
+        telegram: Joi.string().uri().allow(null, "").optional(),
+        whatsapp: Joi.string().uri().allow(null, "").optional(),
         isActive: Joi.boolean().optional(),
       });
       const { error, value } = schema.validate(req.body, { stripUnknown: true });
