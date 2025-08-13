@@ -1,10 +1,10 @@
 {
   "SERVER": {
-    "IP": "api.taganeh.ir",
+    "IP": "lc-api.pourdian.com",
     "PORT": "3020"
   },
   "FRONTEND": {
-    "HOST": "https://taganeh.ir",
+    "HOST": "https://lc.pourdian.com",
     "PORT": "3021"
   },
   "DB": {
@@ -27,5 +27,8 @@
   "DEEPSEEK_API_KEY": "sk-be0927612e7f4a55bb059fc18f70bf13",
   "JWT": {
     "KEY": "8DFG85D1FG51S854GhwH4814JHA458H84W1GK+e:lwqlGKO"
+  },
+  "COOKIE": {
+    "DOMAIN": ".pourdian.com"
   }
 }

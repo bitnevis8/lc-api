@@ -17,21 +17,21 @@ class RoleController extends BaseController {
       const roles = await Role.findAll({
         attributes: {
           include: [
-            [sequelize.fn('COUNT', sequelize.col('users.id')), 'userCount'] // Count associated users
+            [sequelize.fn('COUNT', sequelize.col('roleUsers.id')), 'userCount']
           ]
         },
         include: [{
           model: User,
-          as: 'users',
-          attributes: [], // We only need to count, so no user attributes are fetched
+          as: 'roleUsers',
+          attributes: [],
           through: {
             model: UserRole,
-            attributes: [], // We only need to count, so no UserRole attributes are fetched
+            attributes: [],
           },
-          required: false, // Use LEFT JOIN to include roles even if they have no users
+          required: false,
         }],
-        group: ['Role.id'], // Group by role id to count users per role
-        order: [['createdAt', 'DESC']] // Default sorting
+        group: ['Role.id'],
+        order: [['createdAt', 'DESC']]
       });
       return this.response(res, 200, true, "لیست نقش‌ها دریافت شد.", roles);
     } catch (error) {

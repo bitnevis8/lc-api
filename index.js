@@ -12,16 +12,15 @@ const helmet = require("helmet");
 const SERVER_CONFIG = {
   IP: config.get("SERVER.IP"),
   PORT: config.get("SERVER.PORT"),
-  NODE_ENV: process.env.NODE_ENV || 'development'
+  NODE_ENV: process.env.NODE_ENV || 'development',
+  COOKIE_DOMAIN: (config.has('COOKIE.DOMAIN') && config.get('COOKIE.DOMAIN')) || undefined,
 };
 
 // تنظیمات محیط‌های مختلف
 const ALLOWED_ORIGINS = {
   production: [
-    "https://api.taganeh.ir",
-    "https://api.taganeh.com",
-    "https://taganeh.ir",
-    "https://taganeh.com"
+    "https://lc.pourdian.com",
+    "https://lc-api.pourdian.com"
   ],
   development: [
     "http://localhost:3003",

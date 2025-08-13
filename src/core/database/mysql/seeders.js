@@ -9,6 +9,10 @@ const seedUserRoles = require("../../../modules/user/userRole/seeder");
 
 // Import location module seeders
 const seedLocations = require("../../../modules/location/seeder");
+// Import schedule module seeders
+const seedAppointments = require("../../../modules/schedule/seeder");
+// Import branch module seeders
+const seedBranches = require("../../../modules/branch/seeder");
 
 // Group seeders by module for better organization and control
 const userSeeders = [seedRoles, seedUsers, seedUserRoles];
@@ -35,7 +39,13 @@ async function runSeeders() {
     await runSeederGroup(userSeeders, "User Data");
 
     // 2. Run Locations (independent entities)
-    await runSeederGroup([seedLocations], "Location Data");
+    // await runSeederGroup([seedLocations], "Location Data");
+
+    // 3. Run Schedule (appointments)
+    await runSeederGroup([seedAppointments], "Schedule Data");
+
+    // 4. Run Branches
+    await runSeederGroup([seedBranches], "Branch Data");
 
     console.log("\n✅ All database seeding completed successfully!");
   } catch (error) {

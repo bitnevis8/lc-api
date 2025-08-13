@@ -16,6 +16,10 @@ require("../../modules/user/userRole/model");
 
 // Import Location module models
 require("../../modules/location/model");
+// Import Schedule module models
+require("../../modules/schedule/model");
+// Import Branch module models
+require("../../modules/branch/model");
 
 // Import and define all associations
 const defineAssociations = require("../../modules/associations");

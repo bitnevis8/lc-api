@@ -12,13 +12,15 @@ const { Op } = require("sequelize");
 
 // تابع کمکی برای تنظیمات کوکی
 function getCookieConfig(isProduction) {
+  const configLib = require("config");
+  const cookieDomain = (configLib.has("COOKIE.DOMAIN") && configLib.get("COOKIE.DOMAIN")) || undefined;
   return {
     httpOnly: true,
-    secure: isProduction, // در سرور `true` باشد، در لوکال `false`
-    maxAge: 24 * 60 * 60 * 1000, // 24 ساعت
+    secure: isProduction,
+    maxAge: 24 * 60 * 60 * 1000,
     path: "/",
-    domain: isProduction ? ".parandx.com" : undefined, // برای دسترسی از همه ساب‌دامین‌ها
-    sameSite: isProduction ? "None" : "Lax", // در سرور `None`، در لوکال `Lax`
+    domain: isProduction ? cookieDomain : undefined,
+    sameSite: isProduction ? "None" : "Lax",
   };
 }
 
@@ -164,14 +166,7 @@ class AuthController extends BaseController {
         .sign(encoder.encode(secretKey));
 
       const isProduction = process.env.NODE_ENV === "production";
-      res.cookie("token", token, {
-        httpOnly: true,
-        secure: isProduction,
-        maxAge: 30 * 24 * 60 * 60 * 1000,
-        path: "/",
-        domain: isProduction ? ".parandx.com" : undefined,
-        sameSite: isProduction ? "None" : "Lax",
-      });
+      res.cookie("token", token, getCookieConfig(isProduction));
 
       // ✅ بازیابی نقش‌ها برای کاربر جدید
       const roles = await newUser.getRoles(); // فرض می‌کنیم متد getRoles در مدل User وجود دارد
@@ -295,14 +290,7 @@ class AuthController extends BaseController {
 
       const isProduction = process.env.NODE_ENV === "production";
 
-      res.cookie("token", token, {
-        httpOnly: true,
-        secure: isProduction, // در سرور `true` باشد، در لوکال `false`
-        maxAge: 30 * 24 * 60 * 60 * 1000, // 30 روز
-        path: "/",
-        domain: isProduction ? ".parandx.com" : undefined, // در لوکال `undefined` باشد
-        sameSite: isProduction ? "None" : "Lax", // در سرور `None`، در لوکال `Lax`
-      });
+      res.cookie("token", token, getCookieConfig(isProduction));
 
       // ✅ بازیابی نقش‌ها برای کاربر جدید
       const roles = await newUser.getRoles(); // فرض می‌کنیم متد getRoles در مدل User وجود دارد
@@ -577,14 +565,7 @@ class AuthController extends BaseController {
 
       // ✅ تنظیم کوکی
       const isProduction = process.env.NODE_ENV === "production";
-      res.cookie("token", token, {
-        httpOnly: true,
-        secure: isProduction,
-        maxAge: 30 * 24 * 60 * 60 * 1000,
-        path: "/",
-        domain: isProduction ? ".parandx.com" : undefined,
-        sameSite: isProduction ? "None" : "Lax",
-      });
+      res.cookie("token", token, getCookieConfig(isProduction));
 
       return this.response(res, 200, true, "موبایل با موفقیت تایید شد.");
     } catch (error) {
