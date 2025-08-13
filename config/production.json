@@ -8,7 +8,7 @@
     "PORT": "3021"
   },
   "DB": {
-    "NAME": "laser_clinic",
+    "NAME": "lc",
     "TYPE": "mysql",
     "HOST": "localhost",
     "USER": "taganehroot",
