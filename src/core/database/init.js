@@ -20,6 +20,9 @@ require("../../modules/location/model");
 require("../../modules/schedule/model");
 // Import Branch module models
 require("../../modules/branch/model");
+// Import Pricing module models
+require("../../modules/pricing/categoryModel");
+require("../../modules/pricing/deviceModel");
 
 // Import and define all associations
 const defineAssociations = require("../../modules/associations");

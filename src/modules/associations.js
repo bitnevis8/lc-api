@@ -13,6 +13,8 @@ const FileUpload = require('./fileUpload/model');
 
 // Import مدل‌های ماژول location
 const Location = require('./location/model');
+const PricingCategory = require('./pricing/categoryModel');
+const PricingDevice = require('./pricing/deviceModel');
 
 // تعریف ارتباطات بین مدل‌ها
 const defineAssociations = () => {
@@ -162,6 +164,20 @@ const defineAssociations = () => {
     Location.belongsTo(Location, { 
         foreignKey: 'parentId', 
         as: 'parent',
+        onDelete: 'RESTRICT',
+        onUpdate: 'CASCADE'
+    });
+
+    // ===== ارتباطات ماژول قیمت‌ها =====
+    PricingCategory.hasMany(PricingDevice, {
+        foreignKey: 'categoryId',
+        as: 'devices',
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE'
+    });
+    PricingDevice.belongsTo(PricingCategory, {
+        foreignKey: 'categoryId',
+        as: 'category',
         onDelete: 'RESTRICT',
         onUpdate: 'CASCADE'
     });

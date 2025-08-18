@@ -1,0 +1,45 @@
+{
+  "categories": [
+    {
+      "title": "لیزر موهای زائد",
+      "slug": "laser-hair-removal",
+      "order": 1,
+      "devices": [
+        {
+          "title": "الکساندرایت دکا 2025",
+          "price": 2500000,
+          "imageUrl": "/images/devices/alexandrite-deka-2025.jpg",
+          "order": 1
+        }
+      ]
+    },
+    {
+      "title": "هایفوتراپی",
+      "slug": "hifu",
+      "order": 2,
+      "devices": [
+        {
+          "title": "هایفو گلدن (Korea)",
+          "price": 3500000,
+          "imageUrl": "/images/devices/hifu-golden.jpg",
+          "order": 1
+        }
+      ]
+    },
+    {
+      "title": "کربن تراپی",
+      "slug": "carbon-therapy",
+      "order": 3,
+      "devices": [
+        {
+          "title": "Q-Switch",
+          "price": 1800000,
+          "imageUrl": "/images/devices/q-switch.jpg",
+          "order": 1
+        }
+      ]
+    }
+  ]
+}
+
+

@@ -9,6 +9,7 @@ const fileUploadRouter = require('../modules/fileUpload/route');
 const locationRouter = require('../modules/location/route');
 const scheduleRouter = require('../modules/schedule/route');
 const branchRouter = require('../modules/branch/route');
+const pricingRouter = require('../modules/pricing/route');
 
 // Use routers
 baseRouter.use('/user', userRouter);
@@ -18,5 +19,6 @@ baseRouter.use('/file-upload', fileUploadRouter);
 baseRouter.use('/location', locationRouter);
 baseRouter.use('/schedule', scheduleRouter);
 baseRouter.use('/branch', branchRouter);
+baseRouter.use('/pricing', pricingRouter);
 
 module.exports = baseRouter;
