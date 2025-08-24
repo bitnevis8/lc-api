@@ -3,39 +3,58 @@
     {
       "title": "لیزر موهای زائد",
       "slug": "laser-hair-removal",
+      "imageUrl": "/images/categories/laser-hair-removal.jpg",
       "order": 1,
       "devices": [
         {
           "title": "الکساندرایت دکا 2025",
-          "price": 2500000,
+          "price": null,
           "imageUrl": "/images/devices/alexandrite-deka-2025.jpg",
-          "order": 1
+          "order": 1,
+          "services": [
+            { "title": "لیزر زیر بغل", "price": 350000 },
+            { "title": "لیزر خط گردن", "price": 450000 },
+            { "title": "لیزر خط ریش", "price": 500000 },
+            { "title": "لیزر کمر", "price": 1200000 }
+          ]
         }
       ]
     },
     {
       "title": "هایفوتراپی",
       "slug": "hifu",
+      "imageUrl": "/images/categories/hifu.jpg",
       "order": 2,
       "devices": [
         {
           "title": "هایفو گلدن (Korea)",
-          "price": 3500000,
+          "price": null,
           "imageUrl": "/images/devices/hifu-golden.jpg",
-          "order": 1
+          "order": 1,
+          "services": [
+            { "title": "هایفو کل صورت", "price": 5500000 },
+            { "title": "هایفو غبغب", "price": 1800000 },
+            { "title": "هایفو پیشانی و دور چشم", "price": 2200000 }
+          ]
         }
       ]
     },
     {
       "title": "کربن تراپی",
       "slug": "carbon-therapy",
+      "imageUrl": "/images/categories/carbon-therapy.jpg",
       "order": 3,
       "devices": [
         {
           "title": "Q-Switch",
-          "price": 1800000,
+          "price": null,
           "imageUrl": "/images/devices/q-switch.jpg",
-          "order": 1
+          "order": 1,
+          "services": [
+            { "title": "کربن تراپی صورت", "price": 1500000 },
+            { "title": "کربن تراپی گردن", "price": 1000000 },
+            { "title": "کربن تراپی دست ها", "price": 1200000 }
+          ]
         }
       ]
     }

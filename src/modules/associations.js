@@ -15,6 +15,7 @@ const FileUpload = require('./fileUpload/model');
 const Location = require('./location/model');
 const PricingCategory = require('./pricing/categoryModel');
 const PricingDevice = require('./pricing/deviceModel');
+const PricingService = require('./pricing/serviceModel');
 
 // تعریف ارتباطات بین مدل‌ها
 const defineAssociations = () => {
@@ -178,6 +179,20 @@ const defineAssociations = () => {
     PricingDevice.belongsTo(PricingCategory, {
         foreignKey: 'categoryId',
         as: 'category',
+        onDelete: 'RESTRICT',
+        onUpdate: 'CASCADE'
+    });
+
+    // Services per device
+    PricingDevice.hasMany(PricingService, {
+        foreignKey: 'deviceId',
+        as: 'services',
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE'
+    });
+    PricingService.belongsTo(PricingDevice, {
+        foreignKey: 'deviceId',
+        as: 'device',
         onDelete: 'RESTRICT',
         onUpdate: 'CASCADE'
     });

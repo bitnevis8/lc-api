@@ -14,7 +14,7 @@ PricingDevice.init(
     },
     title: { type: DataTypes.STRING(180), allowNull: false },
     description: { type: DataTypes.TEXT, allowNull: true },
-    price: { type: DataTypes.DECIMAL(12, 2), allowNull: false },
+    price: { type: DataTypes.DECIMAL(12, 2), allowNull: true },
     imageUrl: { type: DataTypes.STRING(500), allowNull: true },
     order: { type: DataTypes.INTEGER, allowNull: true },
     isActive: { type: DataTypes.BOOLEAN, defaultValue: true },

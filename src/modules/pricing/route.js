@@ -20,6 +20,14 @@ router.post("/devices/create", authenticateUser, PricingController.createDevice)
 router.put("/devices/update/:id", authenticateUser, PricingController.updateDevice);
 router.delete("/devices/delete/:id", authenticateUser, PricingController.deleteDevice);
 
+// Services - public read
+router.get("/services/getAll", PricingController.getAllServices);
+router.get("/services/getOne/:id", PricingController.getOneService);
+// Services - protected write
+router.post("/services/create", authenticateUser, PricingController.createService);
+router.put("/services/update/:id", authenticateUser, PricingController.updateService);
+router.delete("/services/delete/:id", authenticateUser, PricingController.deleteService);
+
 module.exports = router;
 
 

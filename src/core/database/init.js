@@ -23,6 +23,7 @@ require("../../modules/branch/model");
 // Import Pricing module models
 require("../../modules/pricing/categoryModel");
 require("../../modules/pricing/deviceModel");
+require("../../modules/pricing/serviceModel");
 
 // Import and define all associations
 const defineAssociations = require("../../modules/associations");

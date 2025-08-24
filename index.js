@@ -34,8 +34,9 @@ const ALLOWED_ORIGINS = {
 const startServer = async () => {
   try {
     // اتصال به دیتابیس‌ها
+    const isProductionEnv = SERVER_CONFIG.NODE_ENV === 'production';
     await initializeDatabase({ 
-      force: true,  // تغییر از true به false
+      force: !isProductionEnv, // در پروداکشن هرگز DB را drop نکن
       seed: true,
       useMongoDB: false
     });

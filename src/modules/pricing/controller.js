@@ -1,6 +1,7 @@
 const BaseController = require("../../core/baseController");
 const PricingCategory = require("./categoryModel");
 const PricingDevice = require("./deviceModel");
+const PricingService = require("./serviceModel");
 const Joi = require("joi");
 
 class PricingController extends BaseController {
@@ -34,6 +35,7 @@ class PricingController extends BaseController {
         title: Joi.string().required(),
         slug: Joi.string().allow(null, ""),
         description: Joi.string().allow(null, ""),
+        imageUrl: Joi.string().allow(null, ""),
         order: Joi.number().allow(null),
         isActive: Joi.boolean().optional(),
       });
@@ -54,6 +56,7 @@ class PricingController extends BaseController {
         title: Joi.string().optional(),
         slug: Joi.string().allow(null, "").optional(),
         description: Joi.string().allow(null, "").optional(),
+        imageUrl: Joi.string().allow(null, "").optional(),
         order: Joi.number().allow(null).optional(),
         isActive: Joi.boolean().optional(),
       });
@@ -150,6 +153,80 @@ class PricingController extends BaseController {
       return this.response(res, 200, true, "دستگاه حذف شد");
     } catch (error) {
       return this.response(res, 500, false, "خطا در حذف دستگاه", null, error);
+    }
+  }
+
+  // ===== Services =====
+  async getAllServices(req, res) {
+    try {
+      const { deviceId } = req.query;
+      const where = {};
+      if (deviceId) where.deviceId = parseInt(deviceId);
+      const services = await PricingService.findAll({ where, order: [["order", "ASC"], ["id", "ASC"]] });
+      return this.response(res, 200, true, "لیست سرویس‌ها", services);
+    } catch (error) {
+      return this.response(res, 500, false, "خطا در دریافت سرویس‌ها", null, error);
+    }
+  }
+
+  async getOneService(req, res) {
+    try {
+      const service = await PricingService.findByPk(req.params.id);
+      if (!service) return this.response(res, 404, false, "سرویس یافت نشد");
+      return this.response(res, 200, true, "سرویس", service);
+    } catch (error) {
+      return this.response(res, 500, false, "خطا در دریافت سرویس", null, error);
+    }
+  }
+
+  async createService(req, res) {
+    try {
+      const schema = Joi.object({
+        deviceId: Joi.number().required(),
+        title: Joi.string().required(),
+        description: Joi.string().allow(null, ""),
+        price: Joi.number().precision(2).required(),
+        order: Joi.number().allow(null),
+        isActive: Joi.boolean().optional(),
+      });
+      const { error, value } = schema.validate(req.body, { stripUnknown: true });
+      if (error) return this.response(res, 400, false, error.details[0].message);
+      const created = await PricingService.create(value);
+      return this.response(res, 201, true, "سرویس ایجاد شد", created);
+    } catch (error) {
+      return this.response(res, 500, false, "خطا در ایجاد سرویس", null, error);
+    }
+  }
+
+  async updateService(req, res) {
+    try {
+      const service = await PricingService.findByPk(req.params.id);
+      if (!service) return this.response(res, 404, false, "سرویس یافت نشد");
+      const schema = Joi.object({
+        deviceId: Joi.number().optional(),
+        title: Joi.string().optional(),
+        description: Joi.string().allow(null, "").optional(),
+        price: Joi.number().precision(2).optional(),
+        order: Joi.number().allow(null).optional(),
+        isActive: Joi.boolean().optional(),
+      });
+      const { error, value } = schema.validate(req.body, { stripUnknown: true });
+      if (error) return this.response(res, 400, false, error.details[0].message);
+      await service.update(value);
+      return this.response(res, 200, true, "سرویس بروزرسانی شد", service);
+    } catch (error) {
+      return this.response(res, 500, false, "خطا در بروزرسانی سرویس", null, error);
+    }
+  }
+
+  async deleteService(req, res) {
+    try {
+      const service = await PricingService.findByPk(req.params.id);
+      if (!service) return this.response(res, 404, false, "سرویس یافت نشد");
+      await service.destroy();
+      return this.response(res, 200, true, "سرویس حذف شد");
+    } catch (error) {
+      return this.response(res, 500, false, "خطا در حذف سرویس", null, error);
     }
   }
 }
