@@ -10,6 +10,7 @@ const locationRouter = require('../modules/location/route');
 const scheduleRouter = require('../modules/schedule/route');
 const branchRouter = require('../modules/branch/route');
 const pricingRouter = require('../modules/pricing/route');
+const blogRouter = require('../modules/blog/route');
 
 // Use routers
 baseRouter.use('/user', userRouter);
@@ -20,5 +21,6 @@ baseRouter.use('/location', locationRouter);
 baseRouter.use('/schedule', scheduleRouter);
 baseRouter.use('/branch', branchRouter);
 baseRouter.use('/pricing', pricingRouter);
+baseRouter.use('/blog', blogRouter);
 
 module.exports = baseRouter;

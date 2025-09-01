@@ -15,6 +15,8 @@ const seedAppointments = require("../../../modules/schedule/seeder");
 const seedBranches = require("../../../modules/branch/seeder");
 // Import pricing module seeders
 const seedPricing = require("../../../modules/pricing/seeder");
+// Import blog module seeders
+const seedBlog = require("../../../modules/blog/seeder");
 
 // Group seeders by module for better organization and control
 const userSeeders = [seedRoles, seedUsers, seedUserRoles];
@@ -51,6 +53,9 @@ async function runSeeders() {
 
     // 5. Run Pricing
     await runSeederGroup([seedPricing], "Pricing Data");
+
+    // 6. Run Blog
+    await runSeederGroup([seedBlog.seedBlogPosts], "Blog Data");
 
     console.log("\n✅ All database seeding completed successfully!");
   } catch (error) {

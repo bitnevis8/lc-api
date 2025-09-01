@@ -24,6 +24,8 @@ require("../../modules/branch/model");
 require("../../modules/pricing/categoryModel");
 require("../../modules/pricing/deviceModel");
 require("../../modules/pricing/serviceModel");
+// Import Blog module models
+require("../../modules/blog/model");
 
 // Import and define all associations
 const defineAssociations = require("../../modules/associations");

@@ -16,6 +16,7 @@ const Location = require('./location/model');
 const PricingCategory = require('./pricing/categoryModel');
 const PricingDevice = require('./pricing/deviceModel');
 const PricingService = require('./pricing/serviceModel');
+const BlogPost = require('./blog/model');
 
 // تعریف ارتباطات بین مدل‌ها
 const defineAssociations = () => {
@@ -194,6 +195,20 @@ const defineAssociations = () => {
         foreignKey: 'deviceId',
         as: 'device',
         onDelete: 'RESTRICT',
+        onUpdate: 'CASCADE'
+    });
+
+    // ===== ارتباطات ماژول بلاگ =====
+    BlogPost.belongsTo(User, {
+        foreignKey: 'authorId',
+        as: 'author',
+        onDelete: 'RESTRICT',
+        onUpdate: 'CASCADE'
+    });
+    User.hasMany(BlogPost, {
+        foreignKey: 'authorId',
+        as: 'blogPosts',
+        onDelete: 'CASCADE',
         onUpdate: 'CASCADE'
     });
 };
