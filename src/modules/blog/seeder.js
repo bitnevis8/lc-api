@@ -1,60 +1,61 @@
 const BlogPost = require("./model");
 const User = require("../user/user/model");
-const Role = require("../user/role/model");
-const UserRole = require("../user/userRole/model");
 const seedData = require("./seederData.json");
 
 async function seedBlogPosts() {
   try {
     console.log("🌱 Starting blog posts seeding...");
-
-    // Get the first admin user through the user_roles junction table
-    const adminRole = await Role.findOne({
-      where: { nameEn: 'admin' }
-    });
-
-    if (!adminRole) {
-      console.log("⚠️ No admin role found. Please create an admin role first.");
+    console.log(`📝 Found ${seedData.posts.length} posts to seed`);
+    
+    // Find the first available user to use as author
+    const firstUser = await User.findOne({ where: { isActive: true } });
+    if (!firstUser) {
+      console.error("❌ No active user found. Cannot seed blog posts without an author.");
       return;
     }
-
-    const adminUserRole = await UserRole.findOne({
-      where: { roleId: adminRole.id }
-    });
-
-    if (!adminUserRole) {
-      console.log("⚠️ No admin user found. Please create an admin user first.");
-      return;
-    }
-
-    const adminUser = await User.findByPk(adminUserRole.userId);
-
-    if (!adminUser) {
-      console.log("⚠️ Admin user not found. Please create an admin user first.");
-      return;
-    }
-
+    
+    console.log(`👤 Using user as author: ${firstUser.firstName} ${firstUser.lastName} (ID: ${firstUser.id})`);
+    
+    let createdCount = 0;
+    let skippedCount = 0;
+    
     for (const postData of seedData.posts) {
-      const [post, created] = await BlogPost.findOrCreate({
-        where: { title: postData.title },
-        defaults: {
-          ...postData,
-          authorId: adminUser.id,
-          publishedAt: postData.status === 'published' ? new Date() : null
+      try {
+        if (!postData.slug) {
+          console.warn(`⚠️ Skipping post '${postData.title}' - no slug provided`);
+          skippedCount++;
+          continue;
         }
-      });
-
-      if (created) {
-        console.log(`✅ Created blog post: ${post.title}`);
-      } else {
-        console.log(`ℹ️ Blog post already exists: ${post.title}`);
+        
+        const [post, created] = await BlogPost.findOrCreate({
+          where: { slug: postData.slug },
+          defaults: {
+            ...postData,
+            authorId: firstUser.id, // Use the found user's ID
+            publishedAt: postData.status === 'published' ? new Date() : null
+          }
+        });
+        
+        if (created) {
+          console.log(`✅ Created blog post: ${post.title} (slug: ${post.slug})`);
+          createdCount++;
+        } else {
+          console.log(`ℹ️ Blog post already exists: ${post.title} (slug: ${post.slug})`);
+          skippedCount++;
+        }
+      } catch (error) {
+        console.error(`❌ Error seeding post '${postData.title}':`, error.message);
+        skippedCount++;
       }
     }
-
-    console.log("🎉 Blog posts seeding completed!");
+    
+    console.log(`🎉 Blog posts seeding completed!`);
+    console.log(`📊 Summary: ${createdCount} created, ${skippedCount} skipped`);
+    
   } catch (error) {
     console.error("❌ Error seeding blog posts:", error);
+    throw error;
   }
 }
 
-module.exports = { seedBlogPosts };
+module.exports = seedBlogPosts;

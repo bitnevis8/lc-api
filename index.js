@@ -7,6 +7,7 @@ const baseRouter = require("./src/core/baseRouter");
 const initializeDatabase = require("./src/core/database/init");
 const rateLimit = require("express-rate-limit");
 const helmet = require("helmet");
+// const { seedBlogPosts } = require("./src/modules/blog/seeder");
 
 // تنظیمات سرور
 const SERVER_CONFIG = {
@@ -36,11 +37,13 @@ const startServer = async () => {
     // اتصال به دیتابیس‌ها
     const isProductionEnv = SERVER_CONFIG.NODE_ENV === 'production';
     await initializeDatabase({ 
-      force: !isProductionEnv, // در پروداکشن هرگز DB را drop نکن
+      force: true, // همیشه دیتابیس را drop و دوباره بساز
       seed: true,
       useMongoDB: false
     });
     console.log("✅ Databases initialized successfully!");
+
+    // حذف اجرای مستقیم سیدر بلاگ
 
     const app = express();
 

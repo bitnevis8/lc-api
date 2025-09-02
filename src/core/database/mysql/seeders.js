@@ -55,7 +55,7 @@ async function runSeeders() {
     await runSeederGroup([seedPricing], "Pricing Data");
 
     // 6. Run Blog
-    await runSeederGroup([seedBlog.seedBlogPosts], "Blog Data");
+    await runSeederGroup([seedBlog], "Blog Data");
 
     console.log("\n✅ All database seeding completed successfully!");
   } catch (error) {
